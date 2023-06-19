@@ -34,6 +34,7 @@ public class Lesson03Quiz01RestController {
 	public List<RealEstate> quiz01_3 (
 			@RequestParam("area") int area,
 			@RequestParam("price") int price) {
+		
 		return realEstateBO.getRealEstateByAreaPrice(area, price);
 	}
 }
