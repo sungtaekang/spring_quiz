@@ -12,7 +12,7 @@ public class Lesson03Quiz03RestController {
 
 	@Autowired RealEstateBO realEstateBO;
 	
-	@RequestMapping("/lesson03/quiz03")
+	@RequestMapping("/lesson03/quiz03/1")
 	public String quiz03(
 			@RequestParam("id") int id,
 			@RequestParam("type") String type,
