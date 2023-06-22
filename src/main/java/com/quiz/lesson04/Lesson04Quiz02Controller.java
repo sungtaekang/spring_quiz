@@ -18,11 +18,13 @@ public class Lesson04Quiz02Controller {
 	@Autowired
 	private RealtorBO realtorBO;
 	
+	// 추가 페이지
 	@GetMapping("/add_realtor_view")
 	public String addRealtorView() {
 		return "lesson04/addRealtor";
 	}
 	
+	// 결과 페이지
 	@PostMapping("/add_realtor")
 	public String addRealtor(
 			@ModelAttribute Realtor realtor,
@@ -31,6 +33,7 @@ public class Lesson04Quiz02Controller {
 		realtorBO.addRealtor(realtor);
 		
 		Realtor latestRealtor = realtorBO.getRealtorById(realtor.getId());
+		
 		model.addAttribute("result", latestRealtor);
 		
 		return "lesson04/afterAddRealtor";

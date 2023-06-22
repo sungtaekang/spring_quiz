@@ -37,6 +37,7 @@
 			,`updatedAt`
 		FROM
 			`realtor`
-		WHERE `id` = #{id}
+		WHERE 
+			`id` = #{id}
 	</select>
  </mapper>
