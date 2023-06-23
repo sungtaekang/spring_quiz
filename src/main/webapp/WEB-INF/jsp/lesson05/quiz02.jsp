@@ -23,7 +23,7 @@
 			<tbody>
 				<c:forEach items="${musicRanking}" var="music" varStatus="status">
 					<tr>
-						<th>${status.count}</th>
+						<td>${status.count}</td>
 						<td>${music}</td>
 					</tr>
 				</c:forEach>
