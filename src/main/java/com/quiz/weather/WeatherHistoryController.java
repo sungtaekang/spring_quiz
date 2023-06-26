@@ -18,19 +18,14 @@ public class WeatherHistoryController {
 	@Autowired
 	private WeatherBO weatherBO;
 	
-	@GetMapping("weather_view")
+	@GetMapping("weather_history_view")
 	public String weatherView() {
-		return "weather/addWeather";
+		return "weather/weatherHistory";
 	}
 	
-	@PostMapping("/add_weather")
-	public String addWeather(
-			@ModelAttribute Weather weather,
-			Model model) {
-		
-		weatherBO.addWeather(weather);
-		model.addAttribute("weather", weather);
-		
-		return "weather/afterAddWeather";
-	}
+	// 추가 화면
+		@GetMapping("/add_weather_view")
+		public String addWeatherView() {
+			return "weather/addWeather";
+		}
 }
