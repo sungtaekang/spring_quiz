@@ -11,6 +11,11 @@
 <script src="https://code.jquery.com/jquery-3.7.0.js" integrity="sha256-JlqSTELeR4TLqP0OG9dxM7yDPqX1ox/HfgiSLBj8+kM=" crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 
+<!-- datepicker -->
+ <link rel="stylesheet" href="//code.jquery.com/ui/1.13.2/themes/base/jquery-ui.css">
+<script src="https://code.jquery.com/ui/1.13.2/jquery-ui.js"></script>
+
+
 <link rel="stylesheet" type="text/css" href="/css/weather/style.css">
 </head>
 <body>
@@ -37,7 +42,7 @@
 			<section class="weather-history col-10 mt-3 ml-5">
 				<h3>날씨 입력</h3>
 
-				<form>
+				<form method="Post" action="/weather/add_weather">
 					<div class="d-flex justify-content-between mt-5">
 						<div class="d-flex align-items-center">
 							<div class="input-label">날짜</div>
@@ -103,5 +108,15 @@
 		</div>
 		<jsp:include page="footer.jsp" />
 	</div>
+	
+		<script>
+			$(document).ready(function () {
+				$('#date').datepicker({
+					dateFormat:"yy-mm-dd" // 날짜 포맷
+					, changeYear: true
+					, changeMonth: true
+				});
+			});
+		</script>
 </body>
 </html>
