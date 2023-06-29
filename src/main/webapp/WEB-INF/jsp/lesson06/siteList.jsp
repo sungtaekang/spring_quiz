@@ -27,7 +27,7 @@
 			<tbody>
 				<c:forEach items="${siteList}" var="site" varStatus="status">
 					<tr>
-						<td>${status.count}</td>
+						<td>${site.id}</td>
 						<td>${site.name}</td>
 						<td>${site.url}</td>
 					</tr>

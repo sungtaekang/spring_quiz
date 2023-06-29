@@ -21,4 +21,6 @@ public class SiteBO {
 	public void addSite(String name, String url) {
 		siteMapper.insertSite(name, url);;
 	}
+	
+	
 }

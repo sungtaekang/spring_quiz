@@ -1,6 +1,8 @@
 package com.quiz.lesson06;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -29,14 +31,20 @@ public class Lesson06Quiz01Controller {
 	
 	@PostMapping("/add_site")
 	@ResponseBody
-	public String addSite(
+	public Map<String, Object> addSite(
 			@RequestParam("name") String name,
 			@RequestParam("url") String url) {
 		
 		// insert
 		siteBO.addSite(name, url);
 		
-		return "성공";
+		// 응답 
+		// {"code":1, "result":"성공"}	JSON String
+		Map<String, Object> result = new HashMap<>();
+		result.put("code", 1);
+		result.put("result", "성공");
+		
+		return result;
 	}
 	
 	@GetMapping("/site_list_view")

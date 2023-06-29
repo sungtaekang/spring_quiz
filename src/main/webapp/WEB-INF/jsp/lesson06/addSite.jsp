@@ -13,41 +13,52 @@
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
 </head>
 <body>
-	<h1 class="font-weight-bold">즐겨 찾기 추가하기</h1>
-
-	<label for="name"><b>제목</b></label>
-	<input type="text" id="name" name="name" class="form-control col-6" placeholder="제목을 입력하세요">
-	
-	<label for="name"><b>주소</b></label>
-	<input type="text" id="url" name="url" class="form-control col-6 mb-3" placeholder="이름을 입력하세요">
-	
-	<input type="button" id="joinBtn" class="btn btn-success col-6" value="추가">
-	
+	<div class="container">
+		<h1 class="font-weight-bold">즐겨 찾기 추가하기</h1>
+		
+		<div class="form-group">
+			<label for="name"><b>제목</b></label>
+			<input type="text" id="name" class="form-control" placeholder="제목을 입력하세요">
+		</div>
+		
+		<div class="form-group">
+			<label for="name"><b>주소</b></label>
+			<div class="d-flex w-100">
+				<input type="text" id="url" class="form-control mb-3 mr-3 col-11" placeholder="주소를 입력하세요">
+				<button type="button" class="btn btn-info h-100 col-1" id="urlCheckBtn">중복확인</button>
+			</div>
+				<small id="urlStatusArea"></small>
+		</div>
+		
+		<input type="button" id="addSiteBtn" class="btn btn-success w-100" value="추가">
+	</div>
 	
 	
 	<script>
 		$(document).ready(function() {
-			$('#joinBtn').on('click', function() {
+			$('#addSiteBtn').on('click', function() {
 				
 				let name = $('#name').val().trim();
 				if(name == '') {
 					alert("제목을 입력하세요");
-					return false;
+					return;
 				}
 				
 				let url = $('#url').val().trim();
 				if(url == '') {
 					alert("url을 입력하세요");
-					return false;
+					return;
 				}
 				
-				if(url.startsWith("http") == false && url.startsWith("https") == false) {
+				if(url.startsWith("http://") == false && url.startsWith("https://") == false) {
 					alert("프로토콜까지 입력하세요.");
-					return false;
+					return;
 				}
 				
 				console.log(name);
 				console.log(url);
+				
+				// AJAX 통신 => 서버 요청
 				
 				$.ajax({
 					type:"post"
@@ -55,21 +66,38 @@
 					, data:{"name":name, "url":url}
 				
 					// response
-					, success:function(data) {
-						alert(data);
-						if(data == "성공") {
-							location.href = "/lesson06/quiz01/site_list_view";
+					, success:function(data) { // String, JSON => 자바스크립트의 객체 변환
+						/* alert(data.code);
+						alert(data.result); */
+						
+						if(data.result == "성공") {
+							location.href = "/lesson06/quiz01/site_list_view"; // GET
 						} else {
 							"등록에 실패하였습니다."
 						}
 					}
-					, complete:function(data) {
-						alert("완료");
-					}
 					, error:function(request, status, error) {
-						alert(request);
-						alert(status);
-						alert(error);
+						alert("즐겨찾기 추가하는데 실패했습니다.");
+					}
+				});
+			});
+			
+			$('#urlCheckBtn').on('click', function() {
+				$('#urlStatusArea').empty();
+				
+				let url = $('#url').val().trim();
+				
+				if (name) {
+					$('#urlStatusArea').append('<span class="text-danger">중복된 url 입니다.</span>');
+				}
+				
+				$.ajax({
+					type:"get"
+					, url:"/lesson06/quiz02/is_duplication"
+					, data:{"url":url}
+				
+					, success:function(data) {
+						
 					}
 				});
 			});
