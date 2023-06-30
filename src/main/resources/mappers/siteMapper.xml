@@ -29,4 +29,25 @@
  			,NOW()
  		)
  	</insert>
+ 	
+ 	<select id="selectSiteByUrl" parameterType="string" resultType="com.quiz.lesson06.domain.Site">
+ 		SELECT 
+	 		`id`
+			,`name`
+			,`url`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`site`
+		WHERE 
+			`url` = #{url}
+ 	</select>
+ 	
+ 	<delete id="deleteSiteById" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`site`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
  </mapper>

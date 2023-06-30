@@ -15,4 +15,8 @@ public interface SiteMapper {
 	public void insertSite(
 			@Param("name") String name,
 			@Param("url") String url);
+	
+	public Site selectSiteByUrl(String url);
+	
+	public int deleteSiteById(int id);
 }
