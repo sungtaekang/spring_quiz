@@ -24,4 +24,16 @@ public class Lesson06Quiz03Controller {
 		model.addAttribute("bookingList", bookingList);
 		return "booking/bookingList";
 	}
+	
+	// 2) 예약 하기 화면
+		@GetMapping("/make_booking_view")
+		public String makeBookingView() {
+			return "booking/makeBooking";
+		}
+
+		// 3) 예약 조회 화면
+		@GetMapping("/search_booking_view")
+		public String searchBookingView() {
+			return "booking/searchBooking";
+		}
 }
