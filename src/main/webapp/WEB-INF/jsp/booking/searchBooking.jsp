@@ -21,8 +21,8 @@
 			<ul class="nav nav-fill">
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="/booking/make_booking_view" class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="/booking/booking_list_view" class="nav-link text-white font-weight-bold">예약목록</a></li>
+				<li class="nav-item"><a href="/lesson06/quiz03/make_booking_view" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="/lesson06/quiz03/booking_list_view" class="nav-link text-white font-weight-bold">예약목록</a></li>
 			</ul>
 		</nav>
 		<section class="banner bg-info">
@@ -77,5 +77,49 @@
 			</div>
 		</footer>
 	</div>
+	
+	<script>
+		$(document).ready(function() {
+			$('#searchBtn').on('click', function() {
+				//alert("클릭");
+				
+				let name = $('#name').val().trim();
+				let phoneNumber = $('#phoneNumber').val().trim();
+				
+				if (name == "") {
+					alert("이름을 입력하세요.");
+					return;
+				}
+				
+				if (!phoneNumber) {
+					alert("전화번호를 입력하세요.");
+					return;
+				}
+				
+				$.ajax({
+					type:"post"
+					, url:"/lesson06/quiz03/search_booking"
+					, data:{"name":name, "phoneNumber":phoneNumber}
+					
+					, success:function(data) {
+						if (data.code == 1) {
+							// 성공
+							alert("이름: " + data.booking.name
+									// 2023-07-03
+									+ "\n날짜: " + data.booking.date.slice(0, 10)
+									+ "\n일수: " + data.booking.day
+									+ "\n인원: " + data.booking.headcount
+									+ "\n상태: " + data.booking.state);
+						} else {
+							alert(data.errorMessage);
+						}
+					}
+					, error:function(request, status, error) {
+						alert("조회에 실패하였습니다.");
+					}
+				});
+			});
+		});
+	</script>
 </body>
 </html>

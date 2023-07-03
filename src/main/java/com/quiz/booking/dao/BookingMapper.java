@@ -2,6 +2,7 @@ package com.quiz.booking.dao;
 
 import java.util.List;
 
+import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.quiz.booking.domain.Booking;
@@ -10,4 +11,17 @@ import com.quiz.booking.domain.Booking;
 public interface BookingMapper {
 
 	public List<Booking> getBookingList();
+	
+	public int deleteBookingById(int id);
+	
+	public int insertBooking(
+			@Param("name") String name,
+			@Param("date") String date,
+			@Param("day") int day,
+			@Param("headcount") int headcount,
+			@Param("phoneNumber") String phoneNumber);
+	
+	public List<Booking> selectBookingByNameAndPhoneNumber(
+			@Param("name") String name,
+			@Param("phoneNumber") String phoneNumber);
 }

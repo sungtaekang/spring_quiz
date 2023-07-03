@@ -21,8 +21,8 @@
 			<ul class="nav nav-fill">
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">팬션소개</a></li>
 				<li class="nav-item"><a href="#" class="nav-link text-white font-weight-bold">객실보기</a></li>
-				<li class="nav-item"><a href="/booking/make_booking_view" class="nav-link text-white font-weight-bold">예약하기</a></li>
-				<li class="nav-item"><a href="/booking/booking_list_view" class="nav-link text-white font-weight-bold">예약목록</a></li>
+				<li class="nav-item"><a href="/lesson06/quiz03/make_booking_view" class="nav-link text-white font-weight-bold">예약하기</a></li>
+				<li class="nav-item"><a href="/lesson06/quiz03/booking_list_view" class="nav-link text-white font-weight-bold">예약목록</a></li>
 			</ul>
 		</nav>
     	<section class="contents mb-5">
@@ -44,12 +44,14 @@
     			<c:forEach items="${bookingList}" var="list">
     				<tr>
     					<td>${list.name}</td>
-    					<td>${list.date}</td>
+    					<td>
+    						<fmt:formatDate value="${list.date}" pattern="yyyy년 M월 d일" />
+    					</td>
     					<td>${list.day}</td>
     					<td>${list.headcount}</td>
     					<td>${list.phoneNumber}</td>
     					<td>${list.state}</td>
-    					<td><button class="btn btn-danger">삭제</button></td>
+    					<td><button type="button" class="del-btn btn btn-danger" data-booking-id="${list.id}">삭제</button></td>
     				</tr>
     			</c:forEach>
     			</tbody>
@@ -63,8 +65,38 @@
 			</div>
 		</footer>
 	</div>
-</body>
-</html>
-    </div>
+	
+	<script>
+		$(document).ready(function() {
+			// 삭제 버튼 클릭
+			$('.del-btn').on('click', function() {
+				// alert("클릭");
+				
+				let deleteBookingId = $(this).data('booking-id');
+				
+				$.ajax({
+					// request
+					type:"delete"
+					, url:"/lesson06/quiz03/delete_booking"
+					, data:{"id":deleteBookingId}
+						
+					// response
+					, success:function(data) {
+						// {"code":1, "result":"성공"}
+						if (data.code == 1) {
+							alert("삭제되었습니다.");
+							location.reload(true);
+						} else {
+						// {"code":500, "errorMessage":"삭제될 데이터가 없습니다."}
+							alert(data.errorMessage);
+						}
+					}
+					, error:function(request, status, error) {
+						alert("삭제하는데 실패했습니다.");
+					}
+				});
+			})
+		});
+	</script>
 </body>
 </html>
