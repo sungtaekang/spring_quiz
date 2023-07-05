@@ -1,5 +1,6 @@
 package com.quiz.lesson07.entity;
 
+import java.time.LocalDate;
 import java.time.ZonedDateTime;
 
 import javax.persistence.Column;
@@ -20,30 +21,38 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-@Builder(toBuilder = true)
+@Builder
 @Getter
-@Table(name = "company")
+@Table(name = "employment")
 @Entity
-public class CompanyEntity {
-
+public class EmploymentEntity {
+	
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Id
 	private int id;
 	
-	private String name;
+	@Column(name = "companyId")
+	private int companyId;
 	
-	private String business;
+	private String position;
 	
-	private String scale;
+	private String responsibilities;
 	
-	private String headcount;
+	private String qualification;
+	
+	private String type;
+	
+	private String region;
+	
+	private int salary;
+	
+	private LocalDate deadline; // 시분초 없음
 	
 	@UpdateTimestamp
-	@Column(name = "createdAt", updatable = false)
+	@Column(name = "createdAt")
 	private ZonedDateTime createdAt;
 	
 	@UpdateTimestamp
 	@Column(name = "updatedAt")
 	private ZonedDateTime updatedAt;
-
 }

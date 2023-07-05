@@ -22,4 +22,24 @@ public class CompanyBO {
 					.build());
 		return company;
 	}
+	
+	// input: 8, scale, headcount
+	// output: CompanyEntity
+	public CompanyEntity updateCompanyById(int id, String scale, String headcount) {
+		CompanyEntity company = companyRepository.findById(id).orElse(null);
+		return companyRepository.save(
+				company.toBuilder()
+				.scale(scale)
+				.headcount(headcount)
+				.build());
+	}
+	
+	public void deleteCompanyById(int id) {
+		CompanyEntity company =  companyRepository.findById(id).orElse(null);
+		if (company != null) {
+			companyRepository.delete(company);
+		}
+	}
+	
+	
 }
